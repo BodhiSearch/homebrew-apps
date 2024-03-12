@@ -1,9 +1,7 @@
 class Bodhiserver < Formula
   desc "Run GenerativeAI models locally and access via OpenAI compatible API"
   homepage "https://github.com/BodhiSearch/BodhiServer"
-  url "https://github.com/BodhiSearch/BodhiServer.git"
-  tag: "v0.1.0"
-  revision: "b4c959c4513fc59e13013cf47b8c1f641114934a"
+  url "https://github.com/BodhiSearch/BodhiServer.git", tag: "v0.1.0", revision: "828442ca84e8dbff5c60a56add6f90241f2526a9"
   license "MIT"
   head "https://github.com/BodhiSearch/BodhiServer.git", branch: "main"
 
