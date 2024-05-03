@@ -7,7 +7,7 @@ class Bodhi < Formula
   license "MIT"
 
   def install
-    mount_dir = Dir.mktmpdir
+    mount_dir = Dir.mktmpdir("dmg_mount")
     system "hdiutil", "attach", "-nobrowse", "-mountpoint", mount_dir, "#{cached_download}"
     app_file = Dir.glob("#{mount_dir}/*.app").first
     if app_file.nil?
@@ -15,7 +15,7 @@ class Bodhi < Formula
     end
     prefix.install app_file
     system "hdiutil", "detach", mount_dir
-    rmdir mount_dir
+    rm_rf mount_dir
 
     bin_path = "#{prefix}/Bodhi.app/Contents/MacOS/Bodhi"
     wrapper = <<~EOS
