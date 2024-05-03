@@ -7,7 +7,7 @@ class Bodhi < Formula
   license "MIT"
 
   def install
-    mount_dir = "/tmp/homebrew-mount"
+    mount_dir = Dir.mktmpdir
     mount_cmd = "/usr/bin/hdiutil attach -readonly -nobrowse -mountpoint '#{mount_dir}' '#{cached_download}'"
     FileUtils.mkdir_p mount_dir
     system mount_cmd
