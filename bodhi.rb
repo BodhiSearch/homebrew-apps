@@ -8,11 +8,14 @@ class Bodhi < Formula
 
   def install
     mount_dir = Dir.mktmpdir
-    mount_cmd = "/usr/bin/hdiutil attach -nobrowse -mountpoint '#{mount_dir}' '#{cached_download}'"
-    system mount_cmd
-    app = Dir.glob("#{mount_dir}/*.app").first
-    prefix.install app
-    FileUtils.rm_rf mount_dir
+    system "hdiutil", "attach", "-nobrowse", "-mountpoint", mount_dir, "#{cached_download}"
+    app_file = Dir.glob("#{mount_dir}/*.app").first
+    if app_file.nil?
+      odie "No .app bundle found in the mounted DMG file."
+    end
+    prefix.install app_file
+    system "hdiutil", "detach", mount_dir
+    rmdir mount_dir
 
     bin_path = "#{prefix}/Bodhi.app/Contents/MacOS/Bodhi"
     wrapper = <<~EOS
