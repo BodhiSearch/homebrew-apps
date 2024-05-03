@@ -30,9 +30,15 @@ class Bodhi < Formula
     (bin/"bodhi").chmod 0755
   end
 
-  uninstall quit: "com.bodhisearch.app"
-  zap trash: [
-    "~/Library/Application Support/com.bodhisearch.app",
-    "~/Library/Preferences/com.bodhisearch.app.plist",
-  ]
+  def uninstall
+    system "osascript -e 'quit app \"Bodhi\"'"
+  end
+
+  def zap
+    trash = [
+      "~/Library/Application Support/Bodhi",
+      "~/Library/Preferences/com.bodhisearch.Bodhi.plist",
+    ]
+    trash.each { |file| File.delete(file) if File.exist?(file) }
+  end
 end
