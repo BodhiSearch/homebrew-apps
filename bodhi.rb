@@ -15,21 +15,21 @@ class Bodhi < Formula
     end
     prefix.install app_file
     system "hdiutil", "detach", mount_dir
-    rm_rf mount_dir
+    # rm_rf mount_dir
 
-    bin_path = "#{prefix}/Bodhi.app/Contents/MacOS/Bodhi"
-    wrapper = <<~EOS
-      #!/bin/bash
-      if [ $# -eq 0 ]; then
-        args="--help"
-      else
-        args="$@"
-      fi
-      "#{bin_path}" $args
-    EOS
-    bin.mkpath
-    (bin/"bodhi").write(wrapper)
-    (bin/"bodhi").chmod 0755
+    # bin_path = "#{prefix}/Bodhi.app/Contents/MacOS/Bodhi"
+    # wrapper = <<~EOS
+    #   #!/bin/bash
+    #   if [ $# -eq 0 ]; then
+    #     args="--help"
+    #   else
+    #     args="$@"
+    #   fi
+    #   "#{bin_path}" $args
+    # EOS
+    # bin.mkpath
+    # (bin/"bodhi").write(wrapper)
+    # (bin/"bodhi").chmod 0755
   end
 
   def uninstall
