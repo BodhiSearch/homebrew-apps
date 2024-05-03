@@ -2,13 +2,13 @@
 
 This repo contains up-to-date formulas to install BodhiSearch apps using Homebrew.
 
-# Install BodhiServer
+# Install Bodhi
 
 1. Add `BodhiSearch/apps` as a tap into homebrew
   ```shell
   brew tap BodhiSearch/apps
   ```
-2. Install `BodhiServer`
+2. Install `Bodhi`
   ```shell
-  brew install bodhiserver
+  brew install bodhi
   ```
