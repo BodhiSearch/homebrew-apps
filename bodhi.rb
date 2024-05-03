@@ -8,8 +8,7 @@ class Bodhi < Formula
 
   def install
     mount_dir = Dir.mktmpdir
-    mount_cmd = "/usr/bin/hdiutil attach -readonly -nobrowse -mountpoint '#{mount_dir}' '#{cached_download}'"
-    FileUtils.mkdir_p mount_dir
+    mount_cmd = "/usr/bin/hdiutil attach -nobrowse -mountpoint '#{mount_dir}' '#{cached_download}'"
     system mount_cmd
     app = Dir.glob("#{mount_dir}/*.app").first
     prefix.install app
