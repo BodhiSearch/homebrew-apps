@@ -1,8 +1,8 @@
 class Bodhi < Formula
   desc "Bodhi is an app to run LLMs/GenAI models locally and access via OpenAI compatible API"
   homepage "https://github.com/BodhiSearch/BodhiServer"
-  url "https://github.com/BodhiSearch/BodhiServer/releases/download/app-v0.0.0/bodhi_0.0.0_aarch64.dmg"
-  sha256 "bad1fbd0f8402281a37660cbb28bc57e58218c94b97e9847b20172ca5c96956c"
+  url "/Users/runner/work/BodhiServer/BodhiServer/target/aarch64-apple-darwin/release/bundle/dmg/Bodhi_0.1.0_aarch64.dmg"
+  sha256 "f29f93f9697908888c27dc49d32b48e75cdba7510a6d8dd45a0fa2444e680fb1"
   version "0.0.0"
   license "MIT"
 
