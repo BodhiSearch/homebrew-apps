@@ -15,6 +15,19 @@ class Bodhi < Formula
     end
     prefix.install app_file
     system "hdiutil", "detach", mount_dir
+    # Retry up to 3 times with a delay before giving up
+    retry_count = 0
+    while retry_count < 3
+      sleep(1) # Adjust the delay as needed
+      retry_count += 1
+      rm_rf mount_dir if Dir.exist?(mount_dir)
+    end
+
+    # If the directory still exists, raise an error
+    if Dir.exist?(mount_dir)
+      odie "Failed to remove the temporary directory #{mount_dir}."
+    end
+
     # rm_rf mount_dir
 
     # bin_path = "#{prefix}/Bodhi.app/Contents/MacOS/Bodhi"
