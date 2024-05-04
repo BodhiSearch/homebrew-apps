@@ -8,7 +8,7 @@ cask "bodhi" do
   homepage "https://github.com/BodhiSearch/BodhiServer"
 
   livecheck do
-    url "https://github.com/BodhiSearch/BodhiServer/releases/download/v0.0.3/Bodhi_0.0.3_aarch64.dmg"
+    url "https://github.com/BodhiSearch/BodhiServer/"
     strategy :github_latest
   end
 
