@@ -15,6 +15,4 @@ cask "bodhi" do
   app "Bodhi"
 
   binary "#{appdir}/Bodhi.app/Contents/Resources/resources/bin/bodhi"
-
-  zap trash: ""
 end
