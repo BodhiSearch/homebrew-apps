@@ -5,10 +5,10 @@ cask "bodhi" do
   url "https://github.com/BodhiSearch/BodhiApp/releases/download/v0.0.3/Bodhi_0.0.3_aarch64.dmg"
   name "bodhi"
   desc "Bodhi is an app to run LLMs/GenAI models locally and access via OpenAI compatible API"
-  homepage "https://github.com/BodhiSearch/BodhiServer"
+  homepage "https://github.com/BodhiSearch/BodhiApp"
 
   livecheck do
-    url "https://github.com/BodhiSearch/BodhiServer/"
+    url "https://github.com/BodhiSearch/BodhiApp/"
     strategy :github_latest
   end
 
