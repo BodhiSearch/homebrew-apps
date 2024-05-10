@@ -12,7 +12,7 @@ cask "bodhi" do
     strategy :github_latest
   end
 
-  app "Bodhi"
+  app "Bodhi.app"
 
-  # binary "#{appdir}/Bodhi.app/Contents/Resources/resources/bin/bodhi"
+  binary "#{appdir}/Bodhi.app/Contents/Resources/resources/bin/bodhi"
 end
