@@ -12,7 +12,15 @@ cask "bodhi" do
     strategy :github_latest
   end
 
+  depends_on arch: :arm64
+
   app "Bodhi.app"
+
+  preflight do
+    unless Hardware::CPU.arm?
+      odie "This version of Bodhi is only for Apple Silicon (ARM) Macs. Your Mac is not supported."
+    end
+  end
 
   binary "#{appdir}/Bodhi.app/Contents/Resources/resources/bin/bodhi"
 end
