@@ -1,8 +1,8 @@
 cask "bodhi" do
-  version "0.0.10"
-  sha256 "ed437bd71c42c6bb1b15a73036f780bc4f4c4c966631587c2fecb5e81e6463d9"
+  version "0.0.11"
+  sha256 "fa5722d733718d457c4a75a3c6b1329356b4bc9dd2aebf4c2a48c72e5ec8fc19"
 
-  url "https://github.com/BodhiSearch/BodhiApp/releases/download/v0.0.10/Bodhi_0.0.10_aarch64.dmg"
+  url "https://github.com/BodhiSearch/BodhiApp/releases/download/v0.0.11/Bodhi_0.0.11_aarch64.dmg"
   name "bodhi"
   desc "Bodhi is an app to run LLMs/GenAI models locally and access via OpenAI compatible API"
   homepage "https://github.com/BodhiSearch/BodhiApp"
@@ -18,7 +18,7 @@ cask "bodhi" do
 
   preflight do
     unless Hardware::CPU.arm?
-      odie "This version of Bodhi is only for Apple Silicon (ARM) Macs. Your Mac is not supported."
+      odie "This version "0.0.11"
     end
   end
 
