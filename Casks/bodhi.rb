@@ -18,7 +18,7 @@ cask "bodhi" do
 
   preflight do
     unless Hardware::CPU.arm?
-      odie "This version "0.0.12"
+      odie "This version is only for Apple Silicon (ARM) Macs. Your Mac is not supported."
     end
   end
 
