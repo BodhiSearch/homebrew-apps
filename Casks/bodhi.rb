@@ -1,8 +1,8 @@
 cask "bodhi" do
-  version "0.0.14"
-  sha256 "09db11ffcc1627567c4cbdfca237c29917839397e785dcdf3adae935447d78b7"
+  version "0.0.15"
+  sha256 "8e4b98766a743499b08ee92896db0cae8d296c5fb8393c8c1b7c19906918e228"
 
-  url "https://github.com/BodhiSearch/BodhiApp/releases/download/v0.0.14/Bodhi_0.0.14_aarch64.dmg"
+  url "https://github.com/BodhiSearch/BodhiApp/releases/download/v0.0.15/Bodhi_0.0.15_aarch64.dmg"
   name "bodhi"
   desc "Bodhi is an app to run LLMs/GenAI models locally and access via OpenAI compatible API"
   homepage "https://github.com/BodhiSearch/BodhiApp"
