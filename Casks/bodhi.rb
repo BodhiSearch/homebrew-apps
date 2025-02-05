@@ -1,20 +1,20 @@
 cask "bodhi" do
-  version "0.0.14"
-  sha256 "09db11ffcc1627567c4cbdfca237c29917839397e785dcdf3adae935447d78b7"
+  version "0.0.19"
+  sha256 "5ec20ed6c1cb082d9278a33f88b0183d2ac7e41cffcab26e28b92f0fabfb78dd"
 
-  url "https://github.com/BodhiSearch/BodhiApp/releases/download/v0.0.14/Bodhi_0.0.14_aarch64.dmg"
+  url "https://github.com/BodhiSearch/BodhiApp/releases/download/v#{version}/Bodhi.App_0.1.0_aarch64.dmg"
   name "bodhi"
-  desc "Bodhi is an app to run LLMs/GenAI models locally and access via OpenAI compatible API"
+  desc "Bodhi App allows you to run LLMs models locally and access result via OpenAI compatible API"
   homepage "https://github.com/BodhiSearch/BodhiApp"
 
   livecheck do
-    url "https://github.com/BodhiSearch/BodhiApp/"
+    url "https://github.com/BodhiSearch/BodhiApp"
     strategy :github_latest
   end
 
   depends_on arch: :arm64
 
-  app "Bodhi.app"
+  app "Bodhi App.app"
 
   preflight do
     unless Hardware::CPU.arm?
@@ -22,5 +22,5 @@ cask "bodhi" do
     end
   end
 
-  binary "#{appdir}/Bodhi.app/Contents/Resources/resources/bin/bodhi"
+  binary "#{appdir}/Bodhi App.app/Contents/MacOS/bodhi"
 end
