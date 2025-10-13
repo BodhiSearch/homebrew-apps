@@ -21,6 +21,4 @@ cask "bodhi" do
       odie "Bodhi only supports Apple Silicon (ARM) Macs. Your Mac is not supported."
     end
   end
-
-  binary "#{appdir}/Bodhi App.app/Contents/MacOS/bodhi"
 end
