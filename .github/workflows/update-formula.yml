@@ -1,0 +1,106 @@
+name: Update Bodhi Formula
+
+on:
+  repository_dispatch:
+    types: [app-released]
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'App version (x.y.z)'
+        required: true
+      tag:
+        description: 'Release tag (e.g., app/v0.0.36)'
+        required: true
+
+jobs:
+  update-formula:
+    runs-on: macos-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Setup Homebrew
+        run: |
+          brew --version
+          brew tap BodhiSearch/apps $(pwd)
+
+      - name: Extract version info
+        id: version_info
+        run: |
+          ./scripts/extract_version_info.js \
+            "${{ github.event_name }}" \
+            "${{ github.event.client_payload.version || inputs.version }}" \
+            "${{ github.event.client_payload.tag || inputs.tag }}" \
+            "${{ github.event.client_payload.dmg_sha256 }}" \
+            "${{ github.event.client_payload.dmg_url }}"
+
+      - name: Check if update needed
+        id: check_update
+        run: |
+          CURRENT_VERSION=$(grep 'version "' Casks/bodhi.rb | sed 's/.*version "\(.*\)"/\1/')
+          NEW_VERSION="${{ steps.version_info.outputs.new_version }}"
+
+          echo "Current Homebrew version: $CURRENT_VERSION"
+          echo "New app version: $NEW_VERSION"
+
+          if ./scripts/compare_versions.js "$CURRENT_VERSION" "$NEW_VERSION"; then
+            echo "update_needed=true" >> $GITHUB_OUTPUT
+            echo "✓ Update needed ($NEW_VERSION > $CURRENT_VERSION)"
+          else
+            echo "update_needed=false" >> $GITHUB_OUTPUT
+            echo "✗ Update not needed ($NEW_VERSION <= $CURRENT_VERSION)"
+          fi
+
+      - name: Validate checksum and URL convention
+        if: steps.check_update.outputs.update_needed == 'true'
+        run: |
+          ./scripts/validate_release.js \
+            "${{ steps.version_info.outputs.new_version }}" \
+            "${{ steps.version_info.outputs.dmg_sha256 }}" \
+            "${{ steps.version_info.outputs.dmg_url }}"
+
+      - name: Update formula
+        if: steps.check_update.outputs.update_needed == 'true'
+        run: |
+          ./scripts/update_formula.js \
+            "${{ steps.version_info.outputs.new_version }}" \
+            "${{ steps.version_info.outputs.dmg_sha256 }}" \
+            "Casks/bodhi.rb"
+
+      - name: Audit cask
+        if: steps.check_update.outputs.update_needed == 'true'
+        run: |
+          brew audit --cask --online bodhi || true
+          echo "Note: Audit warnings are informational only"
+
+      - name: Commit and push
+        if: steps.check_update.outputs.update_needed == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          git add Casks/bodhi.rb
+          git commit -m "chore: update Bodhi to v${{ steps.version_info.outputs.new_version }}
+
+          Automated update triggered by BodhiSearch/BodhiApp
+          Release: ${{ steps.version_info.outputs.new_tag }}
+          Workflow: ${{ github.event.client_payload.workflow_run_url || github.server_url }}/BodhiSearch/homebrew-apps/actions/runs/${{ github.run_id }}"
+
+          git push origin main
+          echo "✓ Formula updated and pushed to main"
+
+      - name: Summary
+        if: always()
+        run: |
+          if [[ "${{ steps.check_update.outputs.update_needed }}" == "true" ]]; then
+            echo "✅ Successfully updated Bodhi formula to v${{ steps.version_info.outputs.new_version }}"
+          else
+            echo "ℹ️ No update needed (version unchanged)"
+          fi
