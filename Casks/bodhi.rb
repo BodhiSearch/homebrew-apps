@@ -1,6 +1,6 @@
 cask "bodhi" do
-  version "0.0.52"
-  sha256 "910b08a99505beca83205244ee1e3debfdff6acf7483ae7874523af911614354"
+  version "0.0.53"
+  sha256 "488ad66137a66d6b8f61166fe0a6e7e6b8c8086f5809dfbcfb06032bd0580899"
 
   url "https://github.com/BodhiSearch/BodhiApp/releases/download/app/v#{version}/Bodhi_App.dmg"
   name "bodhi"
